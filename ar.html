@@ -3,47 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Braço hidráulico A-81 · garra G1 + base B1 · realidade aumentada</title>
-  <meta name="description" content="Modelo 3D animado do braço hidráulico A-81 com a garra G1 e a base B1 do grupo, para ver em realidade aumentada, em tamanho real, no Android e no iPhone.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+  <title>Hidronexo · realidade aumentada</title>
+  <meta name="description" content="Hidronexo: modelo 3D animado do braço hidráulico A-81 com a garra G1 e a base B1 do grupo, para ver em realidade aumentada, em tamanho real, no Android e no iPhone.">
+  <meta name="theme-color" content="#f6f1e3">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="hidronexo.css">
   <script type="module" src="model-viewer.min.js"></script>
   <style>
-    :root {
-      color-scheme: light;
-      --fundo: #e6ebee;
-      --painel: #f6f8f9;
-      --texto: #1b2730;
-      --texto-suave: #4e5d68;
-      --mdf: #c99c63;
-      --queimado: #6b4426;
-      --agua: #1f6fd1;
-      --agua-texto: #ffffff;
-      --foco: #f0a400;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        color-scheme: dark;
-        --fundo: #142029;
-        --painel: #1b2934;
-        --texto: #e6ecf0;
-        --texto-suave: #a3b3be;
-        --mdf: #d3a872;
-        --queimado: #8a5a34;
-        --agua: #4d94ea;
-        --agua-texto: #0d1a26;
-        --foco: #ffc23d;
-      }
-    }
+    :root { color-scheme: light; }
     * { box-sizing: border-box; }
     html, body { margin: 0; height: 100%; }
     body {
-      background: var(--fundo);
-      color: var(--texto);
-      font-family: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-size: 1.0625rem;
-      line-height: 1.5;
+      color: var(--hx-tinta);
+      font-family: var(--hx-mono);
+      font-size: 0.98rem;
+      line-height: 1.55;
       display: flex;
       flex-direction: column;
       padding-top: env(safe-area-inset-top, 0px);
@@ -55,74 +30,47 @@
       min-height: 55vh;
       background: transparent;
       --poster-color: transparent;
-      --progress-bar-color: var(--agua);
+      --progress-bar-color: var(--hx-verde-esc);
     }
     .painel {
-      background: var(--painel);
-      border-top: 6px solid var(--mdf);
-      box-shadow: inset 0 2px 0 var(--queimado);
+      background: var(--hx-cartao);
+      border-top: 3px solid var(--hx-tinta);
       padding: 1.25rem 1.25rem 1.5rem;
     }
     .conteudo { max-width: 34rem; margin: 0 auto; }
-    h1 {
-      font-family: "Barlow Semi Condensed", "Barlow", system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 1.9rem;
-      line-height: 1.1;
-      margin: 0 0 0.35rem;
-      letter-spacing: -0.01em;
-    }
-    .resumo { margin: 0 0 1rem; color: var(--texto-suave); }
+    .marca { display: flex; align-items: center; gap: 0.8rem; margin: 0 0 0.6rem; }
+    .marca img { width: 52px; height: 52px; border: 2px solid var(--hx-tinta); background: #fff; padding: 2px; flex: none; }
+    h1 { font-family: var(--hx-pixel); font-weight: 400; font-size: 1.35rem; line-height: 1.3; margin: 0; letter-spacing: .02em; text-transform: uppercase; }
+    .sub { margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--hx-suave); }
+    .sub b { color: var(--hx-tinta); }
+    .resumo { margin: 0 0 1rem; }
     .acoes { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
     button {
-      font: inherit;
-      border-radius: 10px;
-      cursor: pointer;
-      min-height: 48px;
+      font: inherit; font-weight: 700; cursor: pointer; min-height: 48px; border-radius: 0;
+      border: 2px solid var(--hx-tinta); color: var(--hx-tinta); box-shadow: 3px 3px 0 var(--hx-tinta);
     }
-    button:focus-visible { outline: 3px solid var(--foco); outline-offset: 2px; }
-    #botao-ra {
-      flex: 1 1 14rem;
-      font-family: "Barlow Semi Condensed", "Barlow", system-ui, sans-serif;
-      font-weight: 700;
-      font-size: 1.2rem;
-      background: var(--agua);
-      color: var(--agua-texto);
-      border: 0;
-      padding: 0.8rem 1.2rem;
-    }
-    #botao-animacao {
-      background: transparent;
-      color: var(--texto);
-      border: 2px solid var(--mdf);
-      padding: 0.6rem 1rem;
-    }
-    ol { margin: 1.1rem 0 0; padding-left: 1.3rem; }
-    li { margin-bottom: 0.35rem; }
+    button:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--hx-tinta); }
+    button:focus-visible { outline: 3px solid var(--hx-azul-esc); outline-offset: 3px; }
+    #botao-ra { flex: 1 1 14rem; font-family: var(--hx-pixel); font-weight: 400; font-size: 0.72rem; line-height: 1.6; background: var(--hx-azul); padding: 0.8rem 1rem; }
+    #botao-animacao { background: var(--hx-cartao); padding: 0.6rem 1rem; }
+    #botao-animacao:hover { background: var(--hx-verde-cl); }
+    ol { margin: 1.1rem 0 0; padding-left: 1.4rem; }
+    li { margin-bottom: 0.4rem; }
+    li::marker { color: var(--hx-verde-esc); font-weight: 700; }
     #aviso-desktop {
-      display: none;
-      margin: 0.25rem 0 0;
-      padding: 0.75rem 0.9rem;
-      border-left: 4px solid var(--agua);
-      background: var(--fundo);
+      display: none; margin: 0.25rem 0 0; padding: 0.75rem 0.9rem;
+      border: 2px solid var(--hx-tinta); border-left-width: 8px; border-left-color: var(--hx-azul); background: var(--hx-azul-cl);
     }
-    .credito { margin: 1.1rem 0 0; font-size: 0.9rem; color: var(--texto-suave); }
-    .credito a { color: var(--texto); font-weight: 500; }
+    .credito { margin: 1.1rem 0 0; font-size: 0.85rem; color: var(--hx-suave); }
+    .credito a { color: var(--hx-verde-esc); font-weight: 700; }
     @media (min-width: 900px) {
       body { flex-direction: row; }
       model-viewer { min-height: 100vh; }
-      .painel {
-        flex: 0 0 26rem;
-        border-top: 0;
-        border-left: 6px solid var(--mdf);
-        box-shadow: inset 2px 0 0 var(--queimado);
-        display: flex;
-        align-items: center;
-      }
+      .painel { flex: 0 0 27rem; border-top: 0; border-left: 3px solid var(--hx-tinta); display: flex; align-items: center; }
     }
   </style>
 </head>
-<body>
+<body class="hx-xadrez">
   <model-viewer id="braco"
     src="BracoRA.glb"
     ios-src="BracoRA.usdz"
@@ -142,7 +90,8 @@
 
   <section class="painel">
     <div class="conteudo">
-      <h1>Braço hidráulico A-81 <small style="display:block;font-size:.55em;font-weight:600;color:var(--queimado)">garra G1 + base B1 · <span id="nome-grupo"></span></small></h1>
+      <div class="marca"><img src="logo.png" alt="Logo Hidronexo" width="52" height="52"><div><h1>Hidronexo</h1><span class="hx-lvl" style="margin-top:6px">RA · G1 + B1</span></div></div>
+      <p class="sub">Braço hidráulico A-81 · <b id="nome-grupo"></b></p>
       <p class="resumo">Kit em MDF com o redesenho do grupo: garra G1 com duas garras em gancho sincronizadas por engrenagens e base B1 ampliada. Cada seringa do painel move uma parte do braço: ombro, cotovelo e garra.</p>
 
       <div class="acoes">
